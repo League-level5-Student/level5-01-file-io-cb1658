@@ -1,6 +1,8 @@
 package _04_Directory_Iteration;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
@@ -17,17 +19,48 @@ public class DirectoryIterator {
 			File directory = jfc.getSelectedFile();
 			File[] files = directory.listFiles();
 			if(files != null) {
-				for(File f : files) {
-				  System.out.println(f.getAbsolutePath());
+				
+					iterate(directory);
+					
+				  // System.out.println(f.getAbsolutePath());
 				}
 			}
-		}
+		
 		
 		/*
 		 * Your task is to write a program that iterates through the src folder of this current Java Project. 
 		 * For every .java file it finds, the program will add a (non-legally binding) copyright statement at the bottom.
 		 * Be aware of possible directories inside of directories.
-		 * (e.g //Copyright © 2019 FirstName LastName)
+		 * (e.g //Copyright © 2023 cb1658@github.com)
 		 */
 	}
+	
+	public static void iterate(File directory) {
+			File[] files = directory.listFiles();
+			if(files != null) {
+				for(File f : files) {
+					
+					
+					if(f.getAbsolutePath().contains(".java")) {
+						try {
+							FileWriter fw = new FileWriter(f.getAbsolutePath(),true);
+							
+							fw.write("//Copyright © 2023 cb1658@github.com");
+							
+							fw.close();
+							
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					
+					if(f.isDirectory()) {
+						iterate(f);
+					
+				  // System.out.println(f.getAbsolutePath());
+				}
+			}
+		}
+	}
 }
+//Copyright © 2023 cb1658@github.com

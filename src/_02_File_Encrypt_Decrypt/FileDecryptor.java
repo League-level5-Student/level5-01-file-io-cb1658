@@ -65,3 +65,4 @@ public class FileDecryptor {
 	}
 		
 }
+//Copyright © 2023 cb1658@github.com

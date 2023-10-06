@@ -8,8 +8,6 @@ import java.io.*;
 
 import org.junit.jupiter.api.Test;
 
-
-
 /*
  * Serialization is the process of converting an object into a stream of bytes
  * to store the object or transmit it to memory, a database, or a file. With
@@ -44,24 +42,30 @@ public class Serialization {
 	 * and ObjectOutputStream.
 	 */
 	private static void save(MinecraftCreeper data) {
-		try (FileOutputStream fos = new FileOutputStream(new File(DATA_FILE)); ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+		try {
+			FileOutputStream fos = new FileOutputStream(new File(DATA_FILE)); 
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(data);
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	private static MinecraftCreeper load() {
-		try (FileInputStream fis = new FileInputStream(new File(DATA_FILE)); ObjectInputStream ois = new ObjectInputStream(fis)) {
+		try {
+			FileInputStream fis = new FileInputStream(new File(DATA_FILE)); 
+			ObjectInputStream ois = new ObjectInputStream(fis);
 			return (MinecraftCreeper) ois.readObject();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
 			return null;
-		} catch (ClassNotFoundException e) {
-			// This can occur if the object we read from the file is not
-			// an instance of any recognized class
+		} 
+		catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 }
+//Copyright © 2023 cb1658@github.com
