@@ -31,6 +31,10 @@ public class TextEditor {
 			save(s);
 		});
 		load.setText("load");
+		load.addActionListener((e) -> {
+			ta.setText(load(ta));
+			System.out.println("boo");
+		});
 		panel.add(ta);
 		panel.add(save);
 		panel.add(load);
@@ -43,6 +47,7 @@ public class TextEditor {
 		
 		try {
 			FileWriter fw = new FileWriter("src/textEditor/TextEditor_SAVE.txt");
+			fw.write("\n");
 			
 			fw.write(s);
 				
@@ -53,30 +58,44 @@ public class TextEditor {
 		
 	}
 	
-	public void load() {
+	public String load(JTextArea ta) {
+		
 		
 		JFileChooser jfc = new JFileChooser();
 		int returnVal = jfc.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			String fileName = jfc.getSelectedFile().getAbsolutePath();
 			
+			System.out.println(fileName);
 			try {
 				
 				BufferedReader br = new BufferedReader(new FileReader(fileName));
 				
 				String line = br.readLine();
-				
-				String insert = new String();
+				System.out.println(line);
+				String loadedText = "";
 				
 				while(line != null) {
+					line = br.readLine();
 					
+					if(line == null) {
+						continue;
+					}
+
+					System.out.println("Line: "+line);
+					loadedText += line+"\n";
+					System.out.println("LoadedText: "+loadedText);
 				}
+				br.close();
+				return loadedText;
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
 			}
 			
 			
 		}
+		return null;
 	}
 }
